@@ -14,8 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - if: github.event.pull_request.user.login == 'paosama'
     - name: Create Pull Request
+      if: github.event.pull_request.user.login == 'paosama'
       uses: repo-sync/pull-request@v2
       with:
         github_token: d1817afa1c551c4d61954927f2c8130cb1ec0077
