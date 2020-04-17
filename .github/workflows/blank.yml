@@ -13,35 +13,10 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-    #- name: Create Pull Request
-    #  uses: repo-sync/pull-request@v2
-    #  with:
-    #    github_token: d1817afa1c551c4d61954927f2c8130cb1ec0077
-    #    commit-message: Merge to master
-    #    pr_title: Merge to master
-    #    destination_branch: master
-    #    source_branch: dev
-    - name: Dump GitHub context
-      env:
-        GITHUB_CONTEXT: ${{ toJson(github) }}
-      run: echo "$GITHUB_CONTEXT"
-    - name: Dump job context
-      env:
-        JOB_CONTEXT: ${{ toJson(job) }}
-      run: echo "$JOB_CONTEXT"
-    - name: Dump steps context
-      env:
-        STEPS_CONTEXT: ${{ toJson(steps) }}
-      run: echo "$STEPS_CONTEXT"
-    - name: Dump runner context
-      env:
-        RUNNER_CONTEXT: ${{ toJson(runner) }}
-      run: echo "$RUNNER_CONTEXT"
-    - name: Dump strategy context
-      env:
-        STRATEGY_CONTEXT: ${{ toJson(strategy) }}
-      run: echo "$STRATEGY_CONTEXT"
-    - name: Dump matrix context
-      env:
-        MATRIX_CONTEXT: ${{ toJson(matrix) }}
-      run: echo "$MATRIX_CONTEXT"
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v2
+      with:
+        token: d1817afa1c551c4d61954927f2c8130cb1ec0077
+        commit-message: Merge to master
+        title: Merge to master
+        branch: dev
