@@ -27,6 +27,6 @@ jobs:
       run: echo "$GITHUB_CONTEXT"
     - name: Dump pr creator
       env:
-        PR_CREATOR: ${{ github.event.pull_request.base.head.user.login }}
+        PR_CREATOR: ${{ github.event.pull_request.base.user.login }}
       run: echo "$PR_CREATOR"
       
