@@ -13,10 +13,12 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Create Pull Request
       uses: peter-evans/create-pull-request@v2
       with:
         token: d1817afa1c551c4d61954927f2c8130cb1ec0077
         commit-message: Merge to master
         title: Merge to master
+        base: master
         branch: dev
