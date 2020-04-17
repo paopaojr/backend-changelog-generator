@@ -9,18 +9,12 @@ on:
     branches: [ dev ]
     types: [closed]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  createPullRequest:
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
-    - name: Create Pull Request to master
-      uses: peter-evans/create-pull-request@v2
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v2.7.0
       with:
         token: d1817afa1c551c4d61954927f2c8130cb1ec0077
         commit-message: Merge to master
