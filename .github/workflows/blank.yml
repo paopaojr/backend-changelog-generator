@@ -1,9 +1,5 @@
-# This is a basic workflow to help you get started with Actions
+name: Merge to Master
 
-name: CI
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
   pull_request:
     branches: [ dev ]
@@ -18,6 +14,6 @@ jobs:
       if: github.event.pull_request.user.login == 'paosama'
       uses: repo-sync/pull-request@v2
       with:
-        github_token: d1817afa1c551c4d61954927f2c8130cb1ec0077
+        github_token: e0e810709e59fcff29f05b894139df937ede0a02
         pr_title: Merge to master
         destination_branch: master
