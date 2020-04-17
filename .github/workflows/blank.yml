@@ -7,6 +7,7 @@ name: CI
 on:
   pull_request:
     branches: [ master ]
+    types: [closed]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -17,17 +18,12 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v1
-      with:
-        node-version: v13.10.1
-    # Runs a single command using the runners shell
-    - name: Run a one-line script
-      run: echo Hello, world!
 
-    # Runs a set of commands using the runners shell
-    - name: Run a multi-line script
-      run: |
-        echo Add other actions to build,
-        echo test, and deploy your project.
+    - name: Create Pull Request to master
+      uses: peter-evans/create-pull-request@v2
+      with:
+        token: d1817afa1c551c4d61954927f2c8130cb1ec0077
+        commit-message: Merge to master
+        title: Merge to master
+        base: master
+        branch: dev
