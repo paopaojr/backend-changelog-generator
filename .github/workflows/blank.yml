@@ -13,6 +13,7 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
+    - if: github.event.pull_request.user.login == 'paosama'
     - uses: actions/checkout@v1
     - name: Create Pull Request
       uses: repo-sync/pull-request@v2
@@ -25,8 +26,4 @@ jobs:
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
       run: echo "$GITHUB_CONTEXT"
-    - name: Dump pr creator
-      env:
-        PR_CREATOR: ${{ github.event.pull_request.user.login }}
-      run: echo "$PR_CREATOR"
-      
+
