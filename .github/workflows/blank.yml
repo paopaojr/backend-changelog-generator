@@ -13,15 +13,11 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v1
-      with:
-        python-version: "3.8.2"
     - name: Create Pull Request
-      uses: peter-evans/create-pull-request@v2.7.0
+      uses: repo-sync/pull-request@v2
       with:
-        token: d1817afa1c551c4d61954927f2c8130cb1ec0077
+        github_token: d1817afa1c551c4d61954927f2c8130cb1ec0077
         commit-message: Merge to master
-        title: Merge to master
-        base: master
-        branch: dev
+        pr_title: Merge to master
+        destination_branch: master
+        source_branch: dev
