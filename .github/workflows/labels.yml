@@ -14,5 +14,7 @@ jobs:
         run: exit 0
       - name: check label fail
         if: github.event.pull_request.labels[0].name != 'bug'
-        run: exit 1
+        run: |
+          echo "Game over!"
+          exit 1
       
