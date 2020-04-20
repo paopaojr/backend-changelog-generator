@@ -10,10 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check label success
-        if: github.event.pull_request.labels[0].name == 'bug'
+        if: github.event.pull_request.labels[0].name == 'documentation'
         run: exit 0
       - name: check label fail
-        if: github.event.pull_request.labels[0].name != 'bug'
+        if: github.event.pull_request.labels[0].name != 'documentation'
         run: |
           echo "Game over!"
           exit 1
