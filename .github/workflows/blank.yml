@@ -9,14 +9,14 @@ jobs:
   createPullRequest:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - name: Create Pull Request
-      if: github.event.pull_request.user.login == 'paopaojr'
-      uses: repo-sync/pull-request@v2
-      with:
-        github_token: e0e810709e59fcff29f05b894139df937ede0a02
-        pr_title: Merge to master
-        destination_branch: master
+    # - uses: actions/checkout@v1
+    # - name: Create Pull Request
+    #  if: github.event.pull_request.user.login == 'paopaojr'
+    #  uses: repo-sync/pull-request@v2
+    #  with:
+    #    github_token: e0e810709e59fcff29f05b894139df937ede0a02
+    #    pr_title: Merge to master
+    #   destination_branch: master
     - name: Dump GitHub context
       env:
         GITHUB_CONTEXT: ${{ toJson(github) }}
