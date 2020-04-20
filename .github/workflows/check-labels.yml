@@ -22,4 +22,4 @@ jobs:
             echo "required one of [${{ tags }}] tag!"
             exit 1
           fi
-      
+    
