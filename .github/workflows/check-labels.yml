@@ -16,3 +16,4 @@ jobs:
         run: |
           echo "required one of [ ${{ env.tags }} ] tag!"
           python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
+
