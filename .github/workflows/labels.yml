@@ -12,12 +12,12 @@ jobs:
       - name: check label success
         if: github.event.pull_request.labels[0].name == 'bug'
         env:
-          SHA: ${{ github.sha }}
+          SHA: ${{ github.event.pull_request.head.sha }}
         run: |
           curl -X POST -u pao_sama:73b4b895cc39838f357ba0e4f2635631cc4f7046 --data '{"state":"success", "description": "tags required", "context": "labels check"}' https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/"$SHA"
       - name: check label fail
         env:
-          SHA: ${{ github.sha }}
+          SHA: ${{ github.event.pull_request.head.sha }}
         if: github.event.pull_request.labels[0].name != 'bug'
         run: |
           curl -X POST -u pao_sama:73b4b895cc39838f357ba0e4f2635631cc4f7046 --data '{"state":"failure", "description": "tags required", "context": "labels check"}' https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/"$SHA"
