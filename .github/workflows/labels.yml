@@ -11,12 +11,8 @@ jobs:
     steps:
       - name: check label success
         if: github.event.pull_request.labels[0].name == 'bug'
-        env:
-          SHA: ${{ github.event.pull_request.head.sha }}
-        run: exit 1
-      - name: check label fail
-        env:
-          SHA: ${{ github.event.pull_request.head.sha }}
-        if: github.event.pull_request.labels[0].name != 'bug'
         run: exit 0
+      - name: check label fail
+        if: github.event.pull_request.labels[0].name != 'bug'
+        run: exit 1
       
