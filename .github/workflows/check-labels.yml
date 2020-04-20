@@ -1,4 +1,4 @@
-name: Merge to Master
+name: Check labels
 
 on:
   pull_request:
@@ -9,11 +9,9 @@ jobs:
   statusCheck:
     runs-on: ubuntu-latest
     steps:
-      - name: check label success
-        if: github.event.pull_request.labels[0].name == 'documentation'
-        run: exit 0
       - name: check label fail
-        if: github.event.pull_request.labels[0].name != 'documentation'
+        if: contains(github.event.pull_request.labels.*.name, 'bug') != true ||
+            contains(github.event.pull_request.labels.*.name, 'documentation') != true
         run: |
           echo "Game over!"
           exit 1
