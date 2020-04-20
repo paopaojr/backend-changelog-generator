@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: check label fail
-        if: contains(github.event.pull_request.labels.*.name, 'bug') != true ||
+        if: contains(github.event.pull_request.labels.*.name, 'bug') != true &&
             contains(github.event.pull_request.labels.*.name, 'documentation') != true
         run: |
-          echo "Game over!"
+          echo "one or more of bug or documentation tag is required!"
           exit 1
       
