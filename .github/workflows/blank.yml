@@ -14,7 +14,7 @@ jobs:
     #  if: github.event.pull_request.user.login == 'paopaojr'
     #  uses: repo-sync/pull-request@v2
     #  with:
-    #    github_token: e0e810709e59fcff29f05b894139df937ede0a02
+    #    github_token: 73b4b895cc39838f357ba0e4f2635631cc4f7046
     #    pr_title: Merge to master
     #   destination_branch: master
     - name: Dump GitHub context
