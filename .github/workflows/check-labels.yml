@@ -14,5 +14,5 @@ jobs:
     steps:
       - name: check label
         run: |
-          echo "\033[0;31mrequired one of [${{ env.tags }}] tag!\033[0m"
+          echo "required one of [ ${{ env.tags }} ] tag!"
           python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
