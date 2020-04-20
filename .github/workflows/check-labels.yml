@@ -9,15 +9,15 @@ jobs:
   statusCheck:
     runs-on: ubuntu-latest
     env:
-      required: join(['bug', 'documentation'])
-      tags: join(github.event.pull_request.labels.*.name)
+      required: ${{ join(['bug', 'documentation']) }}
+      tags: ${{ join(github.event.pull_request.labels.*.name) }}
     steps:
       - name: check label
         # if: contains(github.event.pull_request.labels.*.name, 'bug') != true &&
         #     contains(github.event.pull_request.labels.*.name, 'documentation') != true
         
         run: |
-          python -c "exit( len(set('${{ env.tags }}'.split(',')) - set(['${{ env.required }}'])) != 1)"
+          python -c "exit( len(set('${{ env.tags }}'.split(',')) - set('${{ env.required }}'.split(','))) != 1)"
           if [ $? -eq 1 ]; then
             echo "required one of [${{ env.tags }}] tag!"
             exit 1
