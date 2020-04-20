@@ -9,7 +9,7 @@ jobs:
   statusCheck:
     runs-on: ubuntu-latest
     env:
-      required: ${{ join(['bug', 'documentation']) }}
+      required: 'bug,documentation'
       tags: ${{ join(github.event.pull_request.labels.*.name) }}
     steps:
       - name: check label
