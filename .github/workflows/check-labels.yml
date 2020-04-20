@@ -13,13 +13,6 @@ jobs:
       tags: ${{ join(github.event.pull_request.labels.*.name) }}
     steps:
       - name: check label
-        # if: contains(github.event.pull_request.labels.*.name, 'bug') != true &&
-        #     contains(github.event.pull_request.labels.*.name, 'documentation') != true
-        
         run: |
+          echo "\033[0;31mrequired one of [${{ env.tags }}] tag!\033[0m"
           python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
-          if [ $? -eq 1 ]; then
-            echo "required one of [${{ env.tags }}] tag!"
-            exit 1
-          fi
-      
