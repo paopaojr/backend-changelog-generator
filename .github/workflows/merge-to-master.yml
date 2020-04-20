@@ -17,4 +17,3 @@ jobs:
           github_token: ${{ secrets.TOKEN }}
           pr_title: Merge to master
           destination_branch: master
-
