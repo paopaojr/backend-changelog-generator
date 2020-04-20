@@ -8,11 +8,18 @@ on:
 jobs:
   statusCheck:
     runs-on: ubuntu-latest
+    env:
+      required: join(['bug', 'documentation'])
+      tags: join(github.event.pull_request.labels.*.name)
     steps:
-      - name: check label fail
-        if: contains(github.event.pull_request.labels.*.name, 'bug') != true &&
-            contains(github.event.pull_request.labels.*.name, 'documentation') != true
+      - name: check label
+        # if: contains(github.event.pull_request.labels.*.name, 'bug') != true &&
+        #     contains(github.event.pull_request.labels.*.name, 'documentation') != true
+        
         run: |
-          echo "one or more of bug or documentation tag is required!"
-          exit 1
+          python -c "exit( len(set('${{ tags }}'.split(',')) - set(['${{ required }}'])) != 1)"
+          if [ $? -eq 1 ]; then
+            echo "required one of [${{ tags }}] tag!"
+            exit 1
+          fi
       
