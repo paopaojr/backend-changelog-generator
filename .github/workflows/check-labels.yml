@@ -33,3 +33,4 @@ jobs:
                  ${{ env.statusUrl }} >/dev/null
               echo "`tput setaf 1` required one of [${{ env.required }}] tag!"
               exit 1
+
