@@ -11,6 +11,8 @@ jobs:
     env:
       required: 'bug,documentation'
       tags: ${{ join(github.event.pull_request.labels.*.name) }}
+      requestHeader: 'Authorization: token ${{ secrets.TOKEN }}'
+      statusUrl: 'https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}'
     steps:
       - name: check label
         run: |
@@ -18,17 +20,15 @@ jobs:
           python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
       - name: The job has succeeded
         if: success()
-        run | curl -H "Authorization: token ${{ secrets.TOKEN }}" \
+        run: curl -H ${{requestHeader}} \
                  -X POST \
-                 -H "Content-Type: application/json" \
                  -d '{"state":"success","description":"passed","context":"CheckLabels"}' \
-                 https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}
-              exit 0
+                 ${{ statusUrl }} \
+              && exit 0
       - name: The job has failed
         if: failure()
-        run | curl -H "Authorization: token ${{ secrets.TOKEN }}" \
+        run: curl -H ${{requestHeader}} \
                  -X POST \
-                 -H "Content-Type: application/json" \
-                 -d '{"state":"failure","description":"need one of bug, documentation","context":"CheckLabels"}' \
-                 https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}
-               exit 1
+                 -d '{"state":"failure","description":"passed","context":"CheckLabels"}' \
+                 ${{ statusUrl }} \
+              && exit 1
