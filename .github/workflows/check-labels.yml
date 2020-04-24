@@ -22,7 +22,7 @@ jobs:
               curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
                  -d '{"state":"success","description":"passed","context":"CheckLabels"}' \
-                 ${{ env.statusUrl }}
+                 ${{ env.statusUrl }} >/dev/null
               exit 0
       - name: The job has failed
         if: failure()
@@ -30,7 +30,6 @@ jobs:
               curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
                  -d '{"state":"failure","description":"failure","context":"CheckLabels"}' \
-                 ${{ env.statusUrl }}
-              tput setaf 1
-              echo "required one of [${{ env.required }}] tag!"
+                 ${{ env.statusUrl }} >/dev/null
+              echo "`tput setaf 1` required one of [${{ env.required }}] tag!"
               exit 1
