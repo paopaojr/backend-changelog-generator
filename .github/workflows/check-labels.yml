@@ -34,3 +34,4 @@ jobs:
               tput setaf 1
               echo "required one of [${{ env.required }}] tag!"
               exit 1
+              
