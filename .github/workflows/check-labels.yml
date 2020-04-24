@@ -11,6 +11,7 @@ jobs:
     env:
       required: 'bug,documentation'
       tags: ${{ join(github.event.pull_request.labels.*.name) }}
+      statusContext: 'CheckLabels'
       requestHeader: 'Authorization: token ${{ secrets.TOKEN }}'
       statusUrl: 'https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}'
     steps:
@@ -21,7 +22,7 @@ jobs:
         run: |
               curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
-                 -d '{"state":"success","description":"passed","context":"CheckLabels"}' \
+                 -d '{"state":"success","description":"passed","context":"${{ statusContext }}"}' \
                  ${{ env.statusUrl }} >/dev/null
               exit 0
       - name: The job has failed
@@ -29,7 +30,7 @@ jobs:
         run: | 
               curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
-                 -d '{"state":"failure","description":"failure","context":"CheckLabels"}' \
+                 -d '{"state":"failure","description":"required one of [${{ env.required }}] tag!","context":"${{ statusContext }}"}' \
                  ${{ env.statusUrl }} >/dev/null
-              echo "`tput setaf 1` required one of [${{ env.required }}] tag!"
+              echo "required one of [${{ env.required }}] tag!"
               exit 1
