@@ -22,3 +22,4 @@ jobs:
       - name: The job has failed
         if: failure()
         run: exit 1
+
