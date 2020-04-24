@@ -15,20 +15,21 @@ jobs:
       statusUrl: 'https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}'
     steps:
       - name: check label
-        run: |
-          echo "required one of [${{ env.required }}] tag!"
-          python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
+        run: python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
       - name: The job has succeeded
         if: success()
-        run: curl -H "${{ env.requestHeader }}" \
+        run: |
+              curl -H "${{ env.requestHeader }}" \
                  -X POST \
                  -d '{"state":"success","description":"passed","context":"CheckLabels"}' \
                  ${{ env.statusUrl }} \
-              && exit 0
+              exit 0
       - name: The job has failed
         if: failure()
-        run: curl -H "${{ env.requestHeader }}" \
+        run: | 
+              curl -H "${{ env.requestHeader }}" \
                  -X POST \
                  -d '{"state":"failure","description":"failure","context":"CheckLabels"}' \
                  ${{ env.statusUrl }} \
-              && exit 1
+              echo "required one of [${{ env.required }}] tag!"
+              exit 1
