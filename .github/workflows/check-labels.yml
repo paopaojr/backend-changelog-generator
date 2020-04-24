@@ -22,7 +22,7 @@ jobs:
         run: |
               curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
-                 -d '{"state":"success","description":"passed","context":"${{ statusContext }}"}' \
+                 -d '{"state":"success","description":"passed","context":"${{ env.statusContext }}"}' \
                  ${{ env.statusUrl }} >/dev/null
               exit 0
       - name: The job has failed
@@ -30,7 +30,7 @@ jobs:
         run: | 
               curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
-                 -d '{"state":"failure","description":"required one of [${{ env.required }}] tag!","context":"${{ statusContext }}"}' \
+                 -d '{"state":"failure","description":"required one of [${{ env.required }}] tag!","context":"${{ env.statusContext }}"}' \
                  ${{ env.statusUrl }} >/dev/null
               echo "required one of [${{ env.required }}] tag!"
               exit 1
