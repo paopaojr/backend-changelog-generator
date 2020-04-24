@@ -32,3 +32,4 @@ jobs:
                  -d '{"state":"failure","description":"need one of bug, documentation","context":"CheckLabels"}' \
                  https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}
                exit 1
+               
