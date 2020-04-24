@@ -19,17 +19,18 @@ jobs:
       - name: The job has succeeded
         if: success()
         run: |
-              curl -H "${{ env.requestHeader }}" \
+              curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
                  -d '{"state":"success","description":"passed","context":"CheckLabels"}' \
-                 ${{ env.statusUrl }} \
+                 ${{ env.statusUrl }}
               exit 0
       - name: The job has failed
         if: failure()
         run: | 
-              curl -H "${{ env.requestHeader }}" \
+              curl -s -H "${{ env.requestHeader }}" \
                  -X POST \
                  -d '{"state":"failure","description":"failure","context":"CheckLabels"}' \
-                 ${{ env.statusUrl }} \
+                 ${{ env.statusUrl }}
+              tput setaf 1
               echo "required one of [${{ env.required }}] tag!"
               exit 1
