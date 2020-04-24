@@ -33,3 +33,4 @@ jobs:
                  ${{ env.statusUrl }} \
               echo "required one of [${{ env.required }}] tag!"
               exit 1
+              
