@@ -18,7 +18,17 @@ jobs:
           python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
       - name: The job has succeeded
         if: success()
-        run: exit 0
+        run | curl -H "Authorization: token ${{ secrets.TOKEN }}" \
+                 -X POST \
+                 -H "Content-Type: application/json" \
+                 -d '{"state":"success","description":"passed","context":"CheckLabels"}' \
+                 https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}
+              exit 0
       - name: The job has failed
         if: failure()
-        run: exit 1
+        run | curl -H "Authorization: token ${{ secrets.TOKEN }}" \
+                 -X POST \
+                 -H "Content-Type: application/json" \
+                 -d '{"state":"failure","description":"need one of bug, documentation","context":"CheckLabels"}' \
+                 https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}
+               exit 1
