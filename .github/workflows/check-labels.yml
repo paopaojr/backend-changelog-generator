@@ -9,11 +9,10 @@ jobs:
   statusCheck:
     runs-on: ubuntu-latest
     env:
-      CI: true
       required: 'bug,documentation'
       tags: ${{ join(github.event.pull_request.labels.*.name) }}
       statusContext: 'CheckLabels'
-      requestHeader: 'Authorization: token ${{ secrets.TOKEN }}'
+      requestHeader: 'Authorization: token ${{ secrets.GITHUB_TOKEN }}'
       statusUrl: 'https://api.github.com/repos/paopaojr/backend-changelog-generator/statuses/${{ github.event.pull_request.head.sha }}'
     steps:
       - name: check label
