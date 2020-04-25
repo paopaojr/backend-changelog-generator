@@ -1,9 +1,7 @@
 name: Check labels
 
 on:
-  pull_request:
-    branches: [ dev ]
-    types: [opened, labeled, unlabeled]
+  push
 
 jobs:
   statusCheck:
@@ -17,20 +15,3 @@ jobs:
     steps:
       - name: check label
         run: python -c "exit( len(set('${{ env.tags }}'.split(',')).intersection(set('${{ env.required }}'.split(',')))) != 1)"
-      - name: The job has succeeded
-        if: success()
-        run: |
-              curl -s -H "${{ env.requestHeader }}" \
-                 -X POST \
-                 -d '{"state":"success","description":"passed","context":"${{ env.statusContext }}"}' \
-                 ${{ env.statusUrl }} >/dev/null
-              exit 0
-      - name: The job has failed
-        if: failure()
-        run: | 
-              curl -s -H "${{ env.requestHeader }}" \
-                 -X POST \
-                 -d '{"state":"failure","description":"required one of [${{ env.required }}] tag!","context":"${{ env.statusContext }}"}' \
-                 ${{ env.statusUrl }} >/dev/null
-              echo "required one of [${{ env.required }}] tag!"
-              exit 1
